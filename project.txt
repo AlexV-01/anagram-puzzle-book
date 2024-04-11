@@ -1,0 +1,5 @@
+# Anagram Puzzle Book
+
+Help := proc() print(`HELP`) end:
+
+convert(permute([d,o,r,o,n]), set) intersect convert(ENG([5], set);
