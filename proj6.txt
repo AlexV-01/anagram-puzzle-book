@@ -20,15 +20,15 @@ end:
 generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, input, data:
   data := database[if game_number = 0 then rand(1..nops(database))() else game_number fi]:
   for i from 1 to nops(data) do
-	eng := {seq(ltos(word), word in ENG()[Length(data[i])])} union {LowerCase(data[i])}:
-	anagrams[data[i]] := Anagrams(LowerCase(data[i]), eng):
+    eng := {seq(ltos(word), word in ENG()[Length(data[i])])} union {LowerCase(data[i])}:
+    anagrams[data[i]] := Anagrams(LowerCase(data[i]), eng):
   od:
   return anagrams:
 end:
 
 print("Choose a game:");
 print("1: US state capitals");
-print("2: World capital citiesn");
+print("2: World capital cities");
 print("3: Famous mathematicians");
 print("4: Famous athletes");
 print("5: Famous musicians");
