@@ -23,7 +23,7 @@ generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, 
     eng := {seq(ltos(word), word in ENG()[Length(data[i])])} union {LowerCase(data[i])}:
     anagrams[data[i]] := Anagrams(LowerCase(data[i]), eng):
   od:
-  return anagrams:
+  return op(anagrams):
 end:
 
 print("Choose a game:");
