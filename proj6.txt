@@ -16,12 +16,28 @@ ltos := proc(l) local s, i:
   return s:
 end:
 
+# Converts space-separated words to list of sub-words
+wtol := proc(w) local l, s, i:
+  l := []:
+  s := "":
+  for i from 1 to Length(w) do
+    if w[i] = " " then
+      l := [op(l), s]:
+      s := "":
+    else
+      s := cat(s, w[i]):
+    fi:
+  od:
+  l := [op(l), s]:
+  return l:
+end:
+
 # ANAGRAM GENERATOR
-generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, input, data:
+generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, input, data, w:
   data := database[if game_number = 0 then rand(1..nops(database))() else game_number fi]:
   for i from 1 to nops(data) do
-    eng := {seq(ltos(word), word in ENG()[Length(data[i])])} union {LowerCase(data[i])}:
-    anagrams[data[i]] := Anagrams(LowerCase(data[i]), eng):
+    eng := {seq(seq(LowerCase(ltos(word)), word in ENG()[Length(w)]), w in wtol(data[i]))} union {seq(LowerCase(w), w in wtol(data[i]))}:
+    anagrams[data[i]] := [seq([Anagrams(LowerCase(w), eng)], w in wtol(data[i]))]:
   od:
   return op(anagrams):
 end:
