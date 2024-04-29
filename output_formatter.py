@@ -8,39 +8,51 @@ def table_to_puzzle(table):
 
     stack = []
     line = ""
-    anagram = ""
+    anagrams = ""
     word = ""
+    lines_cleared = 0
+    equals_count = 0
 
     line_over = False
     anagrams_over = False
     word_over = False
 
-    for c in table:
-        match c:
+    for i in range(len(table)):
+        match table[i]:
             case '[':
                 stack.append('[')
+                line_over = False
             case ']':
                 stack.pop()
+                line_over = len(stack) == 0
+                lines_cleared += 1 if len(stack) == 0 else 0
+                anagrams_over = len(stack) == 1
             case '=':
-                pass
+                equals_count += 1
             case '"':
-                pass
+                word_over = table[i+1] == ',' or table[i+1] == ']'
             case " ":
                 pass
             case ',':
-                line_over = stack == []
-                anagrams_over = stack == ['[']
-                word_over = stack == ['[[']
+                pass
             case _:
-                word += c
+                if equals_count > lines_cleared:
+                    word += table[i]
         if line_over:
-            puzzle += line + "\n"
+            puzzle += line[:-1] + "\n"
+            line = ""
+            line_over = False
         elif anagrams_over:
-            line += anagram[:-1] + " "
+            line += anagrams[:-1] + " "
+            anagrams = ""
+            anagrams_over = False
         elif word_over:
-            anagram += word + "/"
+            anagrams += word + "/"
+            word = ""
+            word_over = False
     return puzzle
 
+puzzle = """["Denver" = [["nerved", "vender"]], "Helena" = [["eleanh"]], "Oklahoma City" = [["kalmooah"], ["iytc"]], "Olympia" = [["oiyampl"]], "Annapolis" = [["snpioalan"]], "Tallahassee" = [["ateesalsalh"]], "Richmond" = [["nrdhcoim"]], "Baton Rouge" = [["tabon"], ["rogue"]], "Jackson" = [["ckjsoan"]], "Harrisburg" = [["ibhusrragr"]], "Dover" = [["roved", "drove"]], "Madison" = [["daimons", "domains"]], "Little Rock" = [["titlle"], ["cork"]], "Juneau" = [["uneaju"]], "Cheyenne" = [["yceeennh"]], "Lansing" = [["lnnasig"]], "Providence" = [["nieeprcovd"]], "Frankfort" = [["kfrtonarf"]], "Boston" = [["ostnbo"]], "Phoenix" = [["ixnpeho"]], "Charleston" = [["sthocleran"]], "Sacramento" = [["rctmoaeasn"]], "Indianapolis" = [["ipilandaions"]], "Raleigh" = [["lrgihea"]], "Montgomery" = [["tnomroymge"]], "Nashville" = [["lsvhnliae"]], "Santa Fe" = [["satan"], ["fe"]], "Topeka" = [["toeakp"]], "Carson City" = [["narcos", "acorns"], ["city"]], "Albany" = [["lnyaab"]], "Salem" = [["males", "lames", "meals"]], "Columbia" = [["oubialcm"]], "Des Moines" = [["eds"], ["monies"]], "Jefferson City" = [["fjneefrso"], ["ctyi"]], "Bismarck" = [["raibckms"]], "Trenton" = [["ntenrto"]], "Augusta" = [["suaguta"]], "Pierre" = [["ierrpe"]], "Atlanta" = [["naltata"]], "Hartford" = [["ratfdorh"]], "Concord" = [["nodoccr"]], "Honolulu" = [["nolhluou"]], "Montpelier" = [["lniorepmet"]], "Saint Paul" = [["antis", "stain", "satin"], ["ualp"]], "Columbus" = [["bosmlcuu"]], "Austin" = [["tsnaiu"]], "Salt Lake City" = [["last", "slat"], ["kale", "leak"], ["icty"]], "Lincoln" = [["nnlcoil"]], "Springfield" = [["glpidefinrs"]], "Boise" = [["oebis"]]]"""
 
-output = table_to_puzzle("[something]")
+output = table_to_puzzle(puzzle)
 print(output)

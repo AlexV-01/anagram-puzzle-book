@@ -6,6 +6,7 @@ read("CRYPTOGRAM.txt"):
 read("database.txt"):
 with(StringTools):
 with(Maplets[Examples]):
+with(combinat):
 
 Help := proc() print("generate_anagrams(game_number)") end:
 
@@ -33,11 +34,16 @@ wtol := proc(w) local l, s, i:
 end:
 
 # ANAGRAM GENERATOR
-generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, input, data, w:
+generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, input, data, w, j, l:
   data := database[if game_number = 0 then rand(1..nops(database))() else game_number fi]:
   for i from 1 to nops(data) do
-    eng := {seq(seq(LowerCase(ltos(word)), word in ENG()[Length(w)]), w in wtol(data[i]))} union {seq(LowerCase(w), w in wtol(data[i]))}:
+    eng := {seq(seq(LowerCase(ltos(word)), word in ENG()[Length(w)]), w in wtol(data[i]))} minus {seq(LowerCase(w), w in wtol(data[i]))}:
     anagrams[data[i]] := [seq([Anagrams(LowerCase(w), eng)], w in wtol(data[i]))]:
+    for j from 1 to nops(anagrams[data[i]]) do
+      if nops(anagrams[data[i]][j]) = 0 then
+        anagrams[data[i]][j] := [ltos(randperm([seq(l, l in LowerCase(wtol(data[i])[j]))]))]:
+      fi:
+    od:
   od:
   return op(anagrams):
 end:
