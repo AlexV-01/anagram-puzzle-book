@@ -1,0 +1,34 @@
+# ANAGRAM BOOK PUZZLE SOLUTION FORMATTING
+# AUTHORS: Alex Varjabedian, Ryan Badi, Shaurya Baranwal
+
+Help := proc(): print("format_puzzles(puzzles) format_solutions(database)"): end:
+
+# Accepts puzzles as a table and produces a string in its presentable format in the puzzle book.
+# Puzzles are separated by newline characters.
+# Multiple words within a puzzle are separated by spaces.
+# Multiple anagrams for the same word are separated by forward slashes.
+format_puzzles := proc(puzzles) local ret, puzzle, word, anagram:
+  ret := "":
+  for puzzle in puzzles do:
+    for word in puzzle do:
+      for anagram in word do:
+        ret := cat(ret, anagram):
+        if anagram <> word[-1] then:
+          ret := cat(ret, "/"):
+        fi:
+      od:
+      ret := cat(ret, " "):
+    od:
+    ret := cat(ret, "\n"):
+  od:
+  return ret:
+end:
+
+# Accepts puzzles as a table and produces a string in its presentable format in the puzzle book.
+format_solutions := proc(puzzles) local ret, category, puzzle:
+  ret := "":
+  for puzzle in indices(puzzles) do:
+    ret := cat(ret, puzzle[1], "\n"):
+  od:
+  return ret:
+end:
