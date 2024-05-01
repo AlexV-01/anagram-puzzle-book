@@ -1,4 +1,4 @@
-# ANAGRAM BOOK PUZZLE SOLUTION FORMATTING
+# ANAGRAM PUZZLE BOOK FORMATTING AND GENERATION
 # AUTHORS: Alex Varjabedian, Ryan Badi, Shaurya Baranwal
 
 Help := proc(): print("format_puzzles(puzzles) format_solutions(puzzles) GeneratePDF()"): end:
