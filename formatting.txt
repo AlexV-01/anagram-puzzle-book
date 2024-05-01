@@ -35,7 +35,7 @@ end:
 
 # Generates a large string that contains the entire puzzle book
 GeneratePDF := proc() local ret, master, Categories, Puzzles, Solutions, i_:
-  read("database.txt"): # database.txt must be in the same directory as formatting.txt
+  read("database.txt"): # database.txt must be in the same directory the program is being executed from.
   Categories := ["U.S. STATE CAPITALS", "WORLD CAPITAL CITIES", "FAMOUS MATHEMATICIANS", "FAMOUS ATHLETES", "FAMOUS MUSICIANS", "WORLD LANGUAGES", "ANIMAL SPECIES", "FAMOUS INVENTIONS", "FAMOUS AUTHORS", "SCIENCE FICTION MOVIES", "FAMOUS ARTISTS", "FAMOUS MONUMENTS"]:
   master := [seq(generate_anagrams(i_), i_ = 1 .. nops(database))]:
   Puzzles := [seq(format_puzzles(op(master)[i_]), i_ = 1 .. nops(database))]:
