@@ -43,9 +43,9 @@ GeneratePDF := proc() local ret, master, Categories, Puzzles, Solutions, i_:
   ret := "":
   for i_ from 1 to nops(database) do:
     ret := cat(ret, "The following are anagrams of ", C[i_], ". Can you find them?\n", P[i_]):
-  end do:
+  od:
   for i_ from 1 to nops(database) do:
     ret := cat(ret, "\nSOLUTIONS\n", C[i_], "\n", S[i_]):
-  end do:
+  od:
   return ret:
 end:
