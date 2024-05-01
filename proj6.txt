@@ -2,7 +2,6 @@
 # AUTHORS: Alex Varjabedian, Ryan Badi, Shaurya Baranwal
 
 read("ENGLISH.txt"):
-read("CRYPTOGRAM.txt"):
 read("database.txt"):
 with(StringTools):
 with(Maplets[Examples]):
