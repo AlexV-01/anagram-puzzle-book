@@ -1,7 +1,7 @@
 # ANAGRAM BOOK PUZZLE SOLUTION FORMATTING
 # AUTHORS: Alex Varjabedian, Ryan Badi, Shaurya Baranwal
 
-Help := proc(): print("format_puzzles(puzzles) format_solutions(database)"): end:
+Help := proc(): print("format_puzzles(puzzles) format_solutions(puzzles) GeneratePDF()"): end:
 
 # Accepts puzzles as a table and produces a string in its presentable format in the puzzle book.
 # Puzzles are separated by newline characters.
