@@ -32,3 +32,20 @@ format_solutions := proc(puzzles) local ret, category, puzzle:
   od:
   return ret:
 end:
+
+# Generates a large string that contains the entire puzzle book
+with(database)
+GeneratePDF := proc() local ret, master, Categories, Puzzles, Solutions, i_:
+  Categories := ["U.S. STATE CAPITALS", "WORLD CAPITAL CITIES", "FAMOUS MATHEMATICIANS", "FAMOUS ATHLETES", "FAMOUS MUSICIANS", "WORLD LANGUAGES", "ANIMAL SPECIES", "FAMOUS INVENTIONS", "FAMOUS AUTHORS", "SCIENCE FICTION MOVIES", "FAMOUS ARTISTS", "FAMOUS MONUMENTS"]:
+  master := [seq(generate_anagrams(i_), i_ = 1 .. nops(database))]:
+  Puzzles := [seq(format_puzzles(op(master)[i_]), i_ = 1 .. nops(database))]:
+  Solutions := [seq(format_solutions(op(master)[i_]), i_ = 1 .. nops(database))]:
+  ret := "":
+  for i_ from 1 to nops(database) do:
+    ret := cat(ret, "The following are anagrams of ", C[i_], ". Can you find them?\n", P[i_]):
+  end do:
+  for i_ from 1 to nops(database) do:
+    ret := cat(ret, "\nSOLUTIONS\n", C[i_], "\n", S[i_]):
+  end do:
+  return ret:
+end:
