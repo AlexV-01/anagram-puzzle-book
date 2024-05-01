@@ -47,10 +47,3 @@ generate_anagrams := proc(game_number::posint:=0) local eng, i, anagrams, word, 
   od:
   return op(anagrams):
 end:
-
-print("Choose a game:");
-print("1: US state capitals");
-print("2: World capital cities");
-print("3: Famous mathematicians");
-print("4: Famous athletes");
-print("5: Famous musicians");
